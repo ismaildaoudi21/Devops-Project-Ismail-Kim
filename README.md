@@ -24,7 +24,7 @@ A simple user management RESTful API built with Flask and Redis.
 
 1. Clone the repository:
 
-```git clone https://github.com/yourusername/my_project.git```
+```git clone https://github.com/ismaildaoudi21/Devops-Project-Ismail-Kim.git```
 
 2. Change into the project directory:
 
