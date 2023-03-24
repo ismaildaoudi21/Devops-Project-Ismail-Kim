@@ -43,4 +43,4 @@ jobs:
       run: |
         pytest tests -v
       env:
-          DATABASE_URI: "redis://redis:6379"
+          DATABASE_URI: "redis://redis:6379/0"
