@@ -13,8 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     defaults:
-      run:
-        working-directory: ./userapi
 
     # Service containers to run with `runner-job`
     services:
