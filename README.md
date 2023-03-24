@@ -6,9 +6,9 @@ A simple user management RESTful API built with Flask and Redis.
 
 - Welcome message
 - Health check
+- Retrieve all users
 - Create a user
 - Retrieve a user
-- Retrieve all users
 - Update a user
 - Delete a user
 
