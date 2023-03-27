@@ -52,4 +52,4 @@ jobs:
         tags: nguyenkduy/devops-project-dsti-a22:latest
       env:
         DOCKER_USERNAME: nguyenkduy
-        DOCKER_PASSWORD: ${{fromJson(file("./credential.json")).dockerhub_password}}
+        DOCKER_PASSWORD: devops-project-duy
