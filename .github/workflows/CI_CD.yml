@@ -27,7 +27,6 @@ jobs:
         ports:
           - 6379:6379
 
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -44,3 +43,13 @@ jobs:
     - name: Run tests
       run: |
         pytest tests -v
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: nguyenkduy/devops-project-dsti-a22:latest
+      env:
+        DOCKER_USERNAME: nguyenkduy
+        DOCKER_PASSWORD: ${{fromJson(file("./credential.json")).dockerhub_password}}
