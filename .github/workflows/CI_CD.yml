@@ -43,13 +43,21 @@ jobs:
     - name: Run tests
       run: |
         PYTHONPATH=$PYTHONPATH:$(pwd)/app pytest tests -v
+    
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v2
 
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v2
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
       with:
-        context: .
+        username: nguyenkduy
+        password: devops-project-duy
+
+    - name: Build and push
+      uses: docker/build-push-action@v4
+      with:
         push: true
         tags: nguyenkduy/devops-project-dsti-a22:latest
-      env:
-        DOCKER_USERNAME: nguyenkduy
-        DOCKER_PASSWORD: devops-project-duy
