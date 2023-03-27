@@ -15,10 +15,8 @@ A simple user management RESTful API built with Flask and Redis.
 
 ## Requirements
 
-- Python 3.7+
-- Flask
-- Flask-Redis
-- pytest (for testing)
+- Docker
+- Docker Compose
 
 ## Installation
 
@@ -31,25 +29,16 @@ A simple user management RESTful API built with Flask and Redis.
 ```cd project```
 
 
-3. Install the dependencies:
+3. Start the application using Docker Compose:
 
-```pip install -r requirements.txt```
-
-
-## Running the Application
-
-Start the application using the following command:
-
-```python run.py``` or ```python3 run.py```
+```docker-compose up```
 
 
 The application will be accessible at `http://127.0.0.1:5000`.
 
 ## Running the Tests
 
-Run the tests using the following command:
-
-```pytest tests -v```
+Tests automatically run when pushing to GitHub main branch. (or you can run them locally)
 
 
 ## API Endpoints
