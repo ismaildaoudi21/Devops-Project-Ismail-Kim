@@ -42,7 +42,7 @@ jobs:
 
     - name: Run tests
       run: |
-        pytest tests -v
+        PYTHONPATH=$PYTHONPATH:$(pwd)/app pytest tests -v
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
