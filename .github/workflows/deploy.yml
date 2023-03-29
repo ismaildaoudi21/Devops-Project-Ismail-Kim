@@ -1,9 +1,9 @@
 name: "Development Build"
 on:
   push:
-    branches: [ development ]
+    branches: main
   pull_request:
-    branches: [ development ]
+    branches: main
 
 jobs:
 
@@ -51,8 +51,6 @@ jobs:
     name: Deploy to Dev
     needs: [build-and-test]
     runs-on: ubuntu-latest
-    environment:
-      name: Development
 
     steps:
 
@@ -77,8 +75,7 @@ jobs:
     name: Test Remote Deployment
     needs: [DeployDev]
     runs-on: ubuntu-latest
-    environment:
-      name: Development
+
 
     steps:
     - name: Test application
