@@ -76,8 +76,7 @@ jobs:
           APP_DIR: ${{secrets.APP_DIR}}
         run: |
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} "
-            redis-server &
-            sleep 5
+            nohup redis-server &>/dev/null &
             cd ${APP_DIR} 
             pip install -r requirements.txt 
             pytest tests/ -v "
