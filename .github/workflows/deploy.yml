@@ -64,20 +64,10 @@ jobs:
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} "
             cd ${APP_DIR} 
-            git pull "
-            
-      - name: run redis
-        env:
-          PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
-          HOST_NAME : ${{ secrets.HOST_NAME  }}
-          HOST_DNS : ${{ secrets.HOST_DNS  }}
-          USER_NAME : ${{ secrets.USER_NAME  }}
-          USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
-          APP_DIR: ${{secrets.APP_DIR}}
-        run: |
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} "
-            nohup redis-server &>/dev/null &
-            cd ${APP_DIR} 
+            git pull 
+            python3 -m venv venv
+            source venv/bin/activate
             pip install -r requirements.txt 
+            nohup redis-server &>/dev/null &
             pytest tests/ -v "
         
