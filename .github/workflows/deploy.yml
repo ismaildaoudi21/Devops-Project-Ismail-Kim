@@ -68,11 +68,25 @@ jobs:
             pip install -r requirements.txt "
             
       - name: run redis
+        env:
+          PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
+          HOST_NAME : ${{ secrets.HOST_NAME  }}
+          HOST_DNS : ${{ secrets.HOST_DNS  }}
+          USER_NAME : ${{ secrets.USER_NAME  }}
+          USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
+          APP_DIR: ${{secrets.APP_DIR}}
         run: |
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} "
             redis-server & "
         
       - name: run tests
+        env:
+          PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
+          HOST_NAME : ${{ secrets.HOST_NAME  }}
+          HOST_DNS : ${{ secrets.HOST_DNS  }}
+          USER_NAME : ${{ secrets.USER_NAME  }}
+          USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
+          APP_DIR: ${{secrets.APP_DIR}}
         run: |
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} "
             pytest tests/ -v "
