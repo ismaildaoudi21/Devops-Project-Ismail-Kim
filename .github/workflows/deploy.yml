@@ -65,15 +65,13 @@ jobs:
           USER_NAME : ${{ secrets.USER_NAME  }}
           USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
           APP_DIR: ${{secrets.APP_DIR}}
-
-        run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} "
-            cd ${APP_DIR} &&
-            git pull &&
-            redis-server &&
-            python3 run.py &&
-            pytest tests/ -v"
+    
+      - run:  echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+      - run:  ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS}
+      - run:  cd ${APP_DIR}
+      - run:  git pull 
+      - run:  redis-server &
+      - run:  pytest tests/ -v
             
 
 
