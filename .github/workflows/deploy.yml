@@ -71,7 +71,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} "
             cd ${APP_DIR} &&
             git pull &&
-            python3 run.py "
+            python3 run.py &"
   Test-Remote:
     name: Test Remote Deployment
     needs: [DeployDev]
