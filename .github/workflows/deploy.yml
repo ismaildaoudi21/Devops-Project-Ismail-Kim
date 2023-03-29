@@ -62,17 +62,13 @@ jobs:
           USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
           APP_DIR: ${{secrets.APP_DIR}}
           
-      - name: SSH to EC2 instance
+      - name: SSH to EC2 instance, CD, Pull, Install requirements, Start Redis, Run tests
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} 
-
-      - name: CD, Pull, Install requirements, Start Redis, Run tests
-        run: |
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} <<'EOF'
-          cd ${APP_DIR}
-          git pull
-          pip install -r requirements.txt
-          redis-server &
-          pytest tests/ -v
+            cd ${APP_DIR}
+            git pull
+            pip install -r requirements.txt
+            redis-server &
+            pytest tests/ -v
           EOF
