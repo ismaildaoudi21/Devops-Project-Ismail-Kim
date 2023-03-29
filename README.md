@@ -1,6 +1,6 @@
 # Flask Redis User Management API
 
-A simple user management RESTful API built with Flask and Redis.
+A simple user management RESTful API built with Flask and Redis running on an EC2(AWS) instance. (Note : if you want to test the application please let us know so that we launch the instance)
 
 ## Features
 
