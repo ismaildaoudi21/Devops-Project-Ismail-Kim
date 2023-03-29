@@ -43,7 +43,7 @@ Start the application using the following command:
 ```python run.py``` or ```python3 run.py```
 
 
-The application will be accessible at `http://127.0.0.1:5000`.
+The application will be accessible at `http://127.0.0.1:5000` if you run it locally.
 
 ## Running the Tests
 
