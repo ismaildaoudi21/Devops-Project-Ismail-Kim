@@ -108,5 +108,5 @@ jobs:
             source venv/bin/activate
             pip install -r requirements.txt 
             nohup python3 run.py &>/dev/null &
-            curl http://${USER_NAME}:5000/"
+            curl http://${HOST_NAME}:5000/"
         
