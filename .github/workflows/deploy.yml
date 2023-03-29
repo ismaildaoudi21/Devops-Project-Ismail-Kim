@@ -89,4 +89,5 @@ jobs:
           APP_DIR: ${{secrets.APP_DIR}}
         run: |
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} "
+            cd ${APP_DIR} 
             pytest tests/ -v "
