@@ -15,14 +15,10 @@ jobs:
     strategy:
       matrix:
         python-version: [3.9]
-        
-    # Service containers to run with `runner-job`
+
     services:
-      # Label used to access the service container
       redis:
-        # Docker Hub image
         image: redis
-        # Set health checks to wait until redis has started
         options: >-
           --health-cmd "redis-cli ping"
           --health-interval 10s
@@ -70,21 +66,13 @@ jobs:
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} 
-          
-      - name: CD
-        run: cd ${APP_DIR} 
-        
-      - name: Pull
-        run: git pull 
-       
-      - name: install requirements
-        run: pip install -r requirements.txt
-            
-      - name: start redis server    
-        run: redis-server &
-            
-      - name: run tests    
-        run:  pytest tests/ -v
-            
 
-
+      - name: CD, Pull, Install requirements, Start Redis, Run tests
+        run: |
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} <<'EOF'
+          cd ${APP_DIR}
+          git pull
+          pip install -r requirements.txt
+          redis-server &
+          pytest tests/ -v
+          EOF
