@@ -71,8 +71,9 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} "
             cd ${APP_DIR} &&
             git pull &&
-            start redis-server &&
-            python3 run.py &"
+            sudo start redis-server &&
+            python3 run.py &&
+            pytest tests/ -v"
             
   Test-Remote:
     name: Test Remote Deployment
@@ -82,7 +83,5 @@ jobs:
     steps:
     - name: Test application
       run: |
-        ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} "
-            cd ${APP_DIR} &&
-            pytest tests/ -v"
+        echo "test"
 
