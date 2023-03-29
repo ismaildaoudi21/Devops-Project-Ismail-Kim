@@ -50,8 +50,6 @@ jobs:
 
     steps:
 
-      - name: Deploy
-        run: echo I am deploying the api to AWS
 
       - name: Deploy in EC2
         env:
@@ -61,16 +59,24 @@ jobs:
           USER_NAME : ${{ secrets.USER_NAME  }}
           USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
           APP_DIR: ${{secrets.APP_DIR}}
-          
         run: echo I am deploying the api to AWS
           
-      - name: SSH to EC2 instance, CD, Pull, Install requirements, Start Redis, Run tests
+      - name: SSH to EC2 instance
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} <<'EOF'
-            cd ${APP_DIR}
-            git pull
-            pip install -r requirements.txt
-            redis-server &
-            pytest tests/ -v
-          EOF
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} 
+          
+      - name: CD
+        run: cd ${APP_DIR} 
+        
+      - name: Pull
+        run: git pull 
+       
+      - name: install requirements
+        run: pip install -r requirements.txt
+            
+      - name: start redis server    
+        run: redis-server &
+            
+      - name: run tests    
+        run:  pytest tests/ -v
