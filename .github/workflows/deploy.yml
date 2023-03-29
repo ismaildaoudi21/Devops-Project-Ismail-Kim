@@ -92,4 +92,21 @@ jobs:
             source venv/bin/activate
             pip install -r requirements.txt 
             pytest tests/ -v "
+            
+      - name: run application
+        env:
+          PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
+          HOST_NAME : ${{ secrets.HOST_NAME  }}
+          HOST_DNS : ${{ secrets.HOST_DNS  }}
+          USER_NAME : ${{ secrets.USER_NAME  }}
+          USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
+          APP_DIR: ${{secrets.APP_DIR}}
+        run: |
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} "
+            cd ${APP_DIR} 
+            python3 -m venv venv
+            source venv/bin/activate
+            pip install -r requirements.txt 
+            nohup python3 run.py &>/dev/null &
+            curl http://${USER_NAME}:5000/"
         
