@@ -66,3 +66,13 @@ jobs:
             cd ${APP_DIR} 
             git pull 
             pip install -r requirements.txt "
+            
+      - name: run redis
+        run: |
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} "
+            redis-server & "
+        
+      - name: run tests
+        run: |
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} "
+            pytest tests/ -v "
