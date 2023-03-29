@@ -66,13 +66,13 @@ jobs:
           USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
           APP_DIR: ${{secrets.APP_DIR}}
     
-        run:  |
+        run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS}"
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} "
             cd ${APP_DIR} &&
             git pull &&
             redis-server &
-            pytest tests/ -v"
+            pytest tests/ -v "
             
 
 
