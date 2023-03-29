@@ -72,12 +72,6 @@ jobs:
             cd ${APP_DIR} &&
             git pull &&
             start redis-server &&
-            python3 run.py &&
-            pytest tests/ -v"
-
-            cd ${APP_DIR} &&
-            git pull &&
-            start redis-server &&
             python3 run.py &"
             
   Test-Remote:
