@@ -62,6 +62,8 @@ jobs:
           USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
           APP_DIR: ${{secrets.APP_DIR}}
           
+        run: echo I am deploying the api to AWS
+          
       - name: SSH to EC2 instance, CD, Pull, Install requirements, Start Redis, Run tests
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
