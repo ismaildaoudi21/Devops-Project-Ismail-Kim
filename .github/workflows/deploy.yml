@@ -47,8 +47,8 @@ jobs:
       run: |
         pytest tests -v
 
-  DeployDev:
-    name: Deploy to Dev
+  DeployDev-and-Test:
+    name: Deploy to Dev & test
     needs: [build-and-test]
     runs-on: ubuntu-latest
 
@@ -72,14 +72,6 @@ jobs:
             cd ${APP_DIR} &&
             git pull &&
             start redis-server &&
-            python3 run.py &"
-  Test-Remote:
-    name: Test Remote Deployment
-    needs: [DeployDev]
-    runs-on: ubuntu-latest
+            python3 run.py &&
+            pytest tests/ -v"
 
-
-    steps:
-    - name: Test application
-      run: |
-        pytest tests/ -v"
