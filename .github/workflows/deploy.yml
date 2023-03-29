@@ -64,8 +64,7 @@ jobs:
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} "
             cd ${APP_DIR} 
-            git pull 
-            pip install -r requirements.txt "
+            git pull "
             
       - name: run redis
         env:
@@ -77,7 +76,7 @@ jobs:
           APP_DIR: ${{secrets.APP_DIR}}
         run: |
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} "
-            redis-server & "
+            redis-server"
         
       - name: run tests
         env:
@@ -90,4 +89,5 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} "
             cd ${APP_DIR} 
+            pip install -r requirements.txt 
             pytest tests/ -v "
