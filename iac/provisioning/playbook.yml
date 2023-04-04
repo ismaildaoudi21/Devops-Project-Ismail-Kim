@@ -1,0 +1,26 @@
+---
+- name: Provision Flask App with Redis
+  hosts: vagrant
+  become: yes
+  tasks:
+    - name: Install system packages
+      apt:
+        name:
+          - redis-server
+          - python3-venv
+          - python3-dev
+          - build-essential
+        state: present
+      tags: packages
+
+    - name: Create virtual environment
+      command: python3 -m venv /opt/venv
+      args:
+        creates: /opt/venv
+
+    - name: Install Python requirements
+      shell: pip install -r /project/requirements.txt
+
+    - name: run flask app
+      shell: |
+          nohup python3 /project/run.py > log.txt 2>&1 &

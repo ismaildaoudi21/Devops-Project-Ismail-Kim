@@ -1,0 +1,1 @@
+{"rsync":{"/project":{"type":"rsync","guestpath":"/project","hostpath":"/mnt/d/Ismail/DSTI/DevOps_Course/gpt/proj1_bis/project","disabled":false,"__vagrantfile":true,"owner":"vagrant","group":"vagrant"}}}
