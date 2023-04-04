@@ -1,28 +1,19 @@
-# Set the base image to Ubuntu
-FROM ubuntu:latest
+# start by pulling the python image
+FROM python:3.8-alpine
 
-# Set environment variables
-ENV PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1
+# copy the requirements file into the image
+COPY requirements.txt /app/requirements.txt
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    python3 \
-    python3-pip \
-    redis
-
-# Copy the app directory to the image and set it as the working directory
-COPY app /app
+# switch working directory
 WORKDIR /app
 
-# Install app dependencies
-COPY requirements.txt .
-COPY app app
-RUN pip3 install -r requirements.txt
-ENV PYTHONPATH=/app
+# install the dependencies and packages in the requirements file
+RUN pip install -r requirements.txt
 
-# Expose the port that the app will run on
-EXPOSE 5000
+# copy every content from the local file to the image
+COPY . /app
 
-# Start the app
-CMD ["python3", "main.py"]
+# configure the container to run in an executed manner
+ENTRYPOINT [ "python" ]
+
+CMD ["run.py" ]
