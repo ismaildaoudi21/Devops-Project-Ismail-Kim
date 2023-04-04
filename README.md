@@ -65,9 +65,20 @@ Run the tests using the following command:
 
 ## Running the Application using Vagrant
 
-Start the application using the following command:
+To run the application make sure you are in the correct folder using the following command:
+
+```cd iac``` it's where the Vagrantfile is stored.
+
+Then run the following command to start the VM & run the application:
 
 ```vagrant up```
+
+You can also ssh into the VM using the command:
+
+```vagrant ssh```
+
+You can find the application's folder ```cd /project```
+
 
 The application will be accessible at `http://192.168.56.11:5000/`.
 
