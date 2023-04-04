@@ -13,6 +13,17 @@ A simple user management RESTful API built with Flask and Redis running on an EC
 - Delete a user
 
 
+## API Endpoints
+
+- Welcome message: `GET /`
+- Health check: `GET /healthcheck`
+- Retrieve all users: `GET /users`
+- Create a user: `POST /users`
+- Retrieve a user: `GET /users/<int:user_id>`
+- Update a user: `PUT /users/<int:user_id>`
+- Delete a user: `DELETE /users/<int:user_id>`
+
+
 ## Requirements
 
 - Python 3.7+
@@ -36,7 +47,7 @@ A simple user management RESTful API built with Flask and Redis running on an EC
 ```pip install -r requirements.txt```
 
 
-## Running the Application
+## Running the Application Locally
 
 Start the application using the following command:
 
@@ -52,15 +63,17 @@ Run the tests using the following command:
 ```pytest tests -v```
 
 
-## API Endpoints
+## Running the Application using Vagrant
 
-- Welcome message: `GET /`
-- Health check: `GET /healthcheck`
-- Retrieve all users: `GET /users`
-- Create a user: `POST /users`
-- Retrieve a user: `GET /users/<int:user_id>`
-- Update a user: `PUT /users/<int:user_id>`
-- Delete a user: `DELETE /users/<int:user_id>`
+Start the application using the following command:
+
+```vagrant up```
+
+The application will be accessible at `http://192.168.56.11:5000/`.
+
+
+
+
 
 ## License
 
@@ -70,64 +83,3 @@ This project is created by Ismail DAOUDI & Kim Duy NGUYEN
 
 
 
-```
-project
-├─ .dockerignore
-├─ .pytest_cache
-│  ├─ CACHEDIR.TAG
-│  ├─ README.md
-│  └─ v
-│     └─ cache
-│        ├─ lastfailed
-│        ├─ nodeids
-│        └─ stepwise
-├─ Dockerfile
-├─ README.md
-├─ app
-│  ├─ __init__.py
-│  ├─ __pycache__
-│  │  ├─ __init__.cpython-310.pyc
-│  │  ├─ config.cpython-310.pyc
-│  │  ├─ main.cpython-310.pyc
-│  │  └─ routes.cpython-310.pyc
-│  ├─ config.py
-│  ├─ main.py
-│  └─ routes.py
-├─ docker-compose.yml
-├─ iac
-│  ├─ .vagrant
-│  │  ├─ machines
-│  │  │  ├─ default
-│  │  │  │  └─ virtualbox
-│  │  │  │     └─ vagrant_cwd
-│  │  │  └─ trusty
-│  │  │     └─ virtualbox
-│  │  │        ├─ action_set_name
-│  │  │        ├─ creator_uid
-│  │  │        ├─ id
-│  │  │        └─ index_uuid
-│  │  └─ rgloader
-│  │     └─ loader.rb
-│  ├─ Vagrantfile
-│  └─ provisioning
-│     ├─ flask.service.j2
-│     ├─ inventory.ini
-│     └─ playbook.yml
-├─ requirements.txt
-├─ run.py
-└─ tests
-   ├─ .pytest_cache
-   │  ├─ CACHEDIR.TAG
-   │  ├─ README.md
-   │  └─ v
-   │     └─ cache
-   │        ├─ lastfailed
-   │        ├─ nodeids
-   │        └─ stepwise
-   ├─ __init__.py
-   ├─ __pycache__
-   │  ├─ __init__.cpython-310.pyc
-   │  └─ test_app.cpython-310-pytest-7.2.2.pyc
-   └─ test_app.py
-
-```
