@@ -30,6 +30,7 @@ A simple user management RESTful API built with Flask and Redis running on an EC
 - Flask
 - Flask-Redis
 - pytest (for testing)
+- Docker desktop (for running the application locally)
 
 ## Installation
 
@@ -83,8 +84,59 @@ You can find the application's folder ```cd /project```
 The application will be accessible at `http://192.168.56.11:5000/`.
 
 
+## Running the Application using Docker
 
+Open Docker Desktop and make sure it's running.
 
+Then run the following command to build the image:
+
+```docker build -t flask-redis-user-management-api .```
+
+Then run the following command to run the container:
+
+```docker run -p 5000:5000 flask-redis-user-management-api```
+
+The application will be accessible at `http://[LOCAL_HOST_IP]:5000/`.
+
+## Push the image to Docker Hub
+
+To push the image to Docker Hub, you need to create an account on Docker Hub and create a repository.
+
+Login to Docker Hub using the following command:
+
+```docker login```
+
+Then run the following command to tag the image:
+
+```docker tag flask-redis-user-management-api [DOCKER_HUB_USERNAME]/devops-project-dsti-a22```
+
+Then run the following command to push the image to Docker Hub:
+
+```docker push [DOCKER_HUB_USERNAME]/devops-project-dsti-a22```
+
+My full commands for the image pushing are:
+
+```docker login``` (I used my Docker Hub credentials)
+
+```docker tag flask-redis-user-management-api nguyenkduy/devops-project-dsti-a22```
+
+```docker push nguyenkduy/devops-project-dsti-a22```
+
+(Remember you need to create a docker image as described in the previous section)
+
+You can check the repository on Docker Hub using the following link:
+
+https://hub.docker.com/repository/docker/nguyenkduy/devops-project-dsti-a22
+
+## Running the Application using Docker Compose
+
+Open Docker Desktop and make sure it's running.
+
+Then run the following command to build the image and run the container:
+
+```docker compose up```
+
+The application will be accessible at `http://[LOCAL_HOST_IP]:5000/`.
 
 ## License
 
