@@ -31,6 +31,9 @@ A simple user management RESTful API built with Flask and Redis running on an EC
 - Flask-Redis
 - pytest (for testing)
 - Docker desktop (for running the application locally)
+- Vagrant
+- Oracle Virtual Box
+- Ansible
 
 ## Installation
 
@@ -65,6 +68,8 @@ Run the tests using the following command:
 
 
 ## Running the Application using Vagrant
+
+(Note: Make sure that you have vagrant, ansible and Oracle Virtual box installed)
 
 To run the application make sure you are in the correct folder using the following command:
 
