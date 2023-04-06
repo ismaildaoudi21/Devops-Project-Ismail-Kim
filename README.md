@@ -133,6 +133,10 @@ You can check the repository on Docker Hub using the following link:
 
 https://hub.docker.com/repository/docker/nguyenkduy/devops-project-dsti-a22
 
+or 
+
+https://hub.docker.com/r/ismaildaoudi/devops-project-dsti-a22
+
 ## Running the Application using Docker Compose
 
 Open Docker Desktop and make sure it's running.
@@ -146,6 +150,7 @@ The application will be accessible at `http://[LOCAL_HOST_IP]:5000/`.
 ## License
 
 This project is created by Ismail DAOUDI & Kim Duy NGUYEN
+
 
 
 
