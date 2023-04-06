@@ -1,0 +1,111 @@
+name: "Integration & Development Build"
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+
+jobs:
+
+  build-and-test:
+
+    runs-on: ubuntu-latest
+    environment:
+      name: Development
+    strategy:
+      matrix:
+        python-version: [3.9]
+
+    services:
+      redis:
+        image: redis
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+    - name: Test with pytest
+      run: |
+        pytest tests -v
+
+  DeployDev-and-Test:
+    name: Deploy to Dev and Test 
+    needs: [build-and-test]
+    runs-on: ubuntu-latest
+
+    steps:
+            
+      - name: Deploy in EC2
+        env:
+          PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
+          HOST_NAME : ${{ secrets.HOST_NAME  }}
+          HOST_DNS : ${{ secrets.HOST_DNS  }}
+          USER_NAME : ${{ secrets.USER_NAME  }}
+          USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
+          APP_DIR: ${{secrets.APP_DIR}}
+          
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} "
+            cd ${APP_DIR} 
+            git pull "
+            
+      - name: run redis
+        env:
+          PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
+          HOST_NAME : ${{ secrets.HOST_NAME  }}
+          HOST_DNS : ${{ secrets.HOST_DNS  }}
+          USER_NAME : ${{ secrets.USER_NAME  }}
+          USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
+          APP_DIR: ${{secrets.APP_DIR}}
+        run: |
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} "
+            nohup redis-server &>/dev/null &"
+        
+      - name: run tests
+        env:
+          PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
+          HOST_NAME : ${{ secrets.HOST_NAME  }}
+          HOST_DNS : ${{ secrets.HOST_DNS  }}
+          USER_NAME : ${{ secrets.USER_NAME  }}
+          USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
+          APP_DIR: ${{secrets.APP_DIR}}
+        run: |
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} "
+            cd ${APP_DIR} 
+            python3 -m venv venv
+            source venv/bin/activate
+            pip install -r requirements.txt 
+            pytest tests/ -v "
+            
+      - name: run application
+        env:
+          PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
+          HOST_NAME : ${{ secrets.HOST_NAME  }}
+          HOST_DNS : ${{ secrets.HOST_DNS  }}
+          USER_NAME : ${{ secrets.USER_NAME  }}
+          USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
+          APP_DIR: ${{secrets.APP_DIR}}
+        run: |
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_DNS} "
+            cd ${APP_DIR} 
+            python3 -m venv venv
+            source venv/bin/activate
+            pip install -r requirements.txt 
+            nohup python3 run.py &>/dev/null &"
+        
