@@ -298,9 +298,9 @@ In Grafana, create a new dashboard and add panels that display the metrics colle
 - Prometheus
 - Grafana
 
-https://hub.docker.com/r/ismaildaoudi/devops-project-dsti-a22
-https://aws.amazon.com/ec2/
-https://medium.com/@lyle-okoth/how-to-deploy-a-production-grade-flask-application-to-an-aws-ec2-instance-using-github-actions-163be1d5fbd5
+- https://hub.docker.com/r/ismaildaoudi/devops-project-dsti-a22
+- https://aws.amazon.com/ec2/
+- https://medium.com/@lyle-okoth/how-to-deploy-a-production-grade-flask-application-to-an-aws-ec2-instance-using-github-actions-163be1d5fbd5
 
 ## License
 
