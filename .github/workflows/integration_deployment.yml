@@ -67,7 +67,7 @@ jobs:
             git pull "
             
       - name: run redis
-        if: sucess()
+        if: success()
         env:
           PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
           HOST_NAME : ${{ secrets.HOST_NAME  }}
