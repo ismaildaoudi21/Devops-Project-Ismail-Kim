@@ -66,6 +66,7 @@ jobs:
             git pull "
             
       - name: run redis
+        if: always()
         env:
           PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
           HOST_NAME : ${{ secrets.HOST_NAME  }}
@@ -78,6 +79,7 @@ jobs:
             nohup redis-server &>/dev/null &"
         
       - name: run tests
+        if: always()
         env:
           PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
           HOST_NAME : ${{ secrets.HOST_NAME  }}
@@ -94,6 +96,7 @@ jobs:
             pytest tests/ -v "
             
       - name: run application
+        if: always()
         env:
           PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
           HOST_NAME : ${{ secrets.HOST_NAME  }}
